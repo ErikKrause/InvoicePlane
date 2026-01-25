@@ -44,7 +44,7 @@ class Clients extends Admin_Controller
             $this->mdl_clients->{$function}();
         }
 
-        $this->mdl_clients->with_total_balance()->paginate(site_url('clients/status/' . $status), $page);
+        $this->mdl_clients->with_total_balance()->with_total()->paginate(site_url('clients/status/' . $status), $page);
         $clients = $this->mdl_clients->result();
 
         $req_einvoicing = get_setting('einvoicing');
