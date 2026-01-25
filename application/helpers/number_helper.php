@@ -92,7 +92,6 @@ function standardize_amount($amount): float|int|string|array|false|null
         if ($thousands_separator == '.' && ! mb_substr_count($amount, ',') && mb_substr_count($amount, '.') > 1) {
             $amount[mb_strrpos($amount, '.')] = ','; // Replace last position of dot to comma
         }
-
         if ($thousands_separator) {
             $amount = strtr($amount, [$thousands_separator => '', $decimal_point => '.']);
         } else {
