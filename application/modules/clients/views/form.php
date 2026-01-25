@@ -31,7 +31,25 @@ $einvoicingOpt = $req_einvoicing ? $einvoicingTip . trans('optional') . ')"' : '
 <?php $this->layout->load_view('clients/js/script_select_client_title.js'); ?>
 
     });
-
+    $(document).ready(function() {
+        $( "input#custom1" ).on( "blur", function() {
+            var ele = $(this);
+            var iban = ele.val()
+            $.post( "/iban/verify.php",
+                { Was: 'IBAN',
+                  IBAN: iban
+                })
+            .done(function(data) {
+                if (data.status != 'success') {
+                    alert('IBAN nicht korrekt!');
+                    ele.parent().addClass('has-error');
+                    ele.focus();
+                } else {
+                    ele.parent().removeClass('has-error');
+                }
+            })
+        });
+    });
 </script>
 
 <form method="post">
