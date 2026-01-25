@@ -4,17 +4,17 @@
         <tr>
             <th><?php _trans('active'); ?></th>
             <th><?php _trans('client_name'); ?></th>
-            <th><?php _trans('email_address'); ?></th>
 <?php
 if ($einvoicing) {
 ?>
-            <th><?php echo ' e-' . trans('invoicing') . ' ' . ucfirst(trans('version')); ?></th>
+<!--            <th><?php echo ' e-' . trans('invoicing') . ' ' . ucfirst(trans('version')); ?></th> -->
             <th><?php echo ' e-' . trans('invoicing') . ' ' . trans('active'); ?></th>
 <?php
 }
 ?>
-            <th><?php _trans('phone_number'); ?></th>
-            <th class="amount last"><?php _trans('balance'); ?></th>
+            <th><?php _trans('city'); ?></th>
+            <th><?php _trans('street_address'); ?></th>
+            <th class="amount"><?php _trans('amount'); ?></th>
             <th><?php _trans('options'); ?></th>
         </tr>
         </thead>
@@ -28,7 +28,6 @@ foreach ($records as $client) {
                     <?php echo ($client->client_active) ? '<span class="label active">' . trans('yes') . '</span>' : '<span class="label inactive">' . trans('no') . '</span>'; ?>
                 </td>
                 <td><?php echo anchor('clients/view/' . $client->client_id, htmlsc(format_client($client))); ?></td>
-                <td><?php _htmlsc($client->client_email); ?></td>
 <?php
 if ($einvoicing) {
 ?>
@@ -49,8 +48,9 @@ if ($einvoicing) {
 <?php
 }
 ?>
-                <td><?php _htmlsc($client->client_phone ? $client->client_phone : ($client->client_mobile ? $client->client_mobile : '')); ?></td>
-                <td class="amount last"><?php echo format_currency($client->client_invoice_balance); ?></td>
+                <td><?php _htmlsc($client->client_zip.' '. $client->client_city); ?></td>
+                <td><?php _htmlsc(($client->client_address_2?"$client->client_address_2 - ":"").$client->client_address_1); ?></td>
+                <td class="amount"><?php echo format_currency($client->client_invoice_total); ?></td>
                 <td>
                     <div class="options btn-group">
                         <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#">

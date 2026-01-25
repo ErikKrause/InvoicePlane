@@ -206,6 +206,15 @@ if ($req_einvoicing) {
                         </div>
 
                         <div class="form-group"<?php echo $einvoicingReq; ?>>
+                            <label for="client_zip"><?php _trans('zip_code'); ?></label>
+
+                            <div class="controls">
+                                <input type="text" name="client_zip" id="client_zip" class="form-control"
+                                       value="<?php echo $this->mdl_clients->form_value('client_zip', true); ?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group"<?php echo $einvoicingReq; ?>>
                             <label for="client_city"><?php _trans('city'); ?></label>
 
                             <div class="controls">
@@ -220,15 +229,6 @@ if ($req_einvoicing) {
                             <div class="controls">
                                 <input type="text" name="client_state" id="client_state" class="form-control"
                                        value="<?php echo $this->mdl_clients->form_value('client_state', true); ?>">
-                            </div>
-                        </div>
-
-                        <div class="form-group"<?php echo $einvoicingReq; ?>>
-                            <label for="client_zip"><?php _trans('zip_code'); ?></label>
-
-                            <div class="controls">
-                                <input type="text" name="client_zip" id="client_zip" class="form-control"
-                                       value="<?php echo $this->mdl_clients->form_value('client_zip', true); ?>">
                             </div>
                         </div>
 
