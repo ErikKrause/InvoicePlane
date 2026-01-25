@@ -104,7 +104,7 @@ if ($invoice->invoice_status_id == 1 && ! $invoice->creditinvoice_parent_id) {
                 function (data) {
                     var response = json_parse(data, <?php echo (int) IP_DEBUG; ?>);
                     if (response.success === 1) {
-                        window.location = "<?php echo site_url('invoices/view'); ?>/" + <?php echo $invoice_id; ?>;
+                        window.location = "<?php echo site_url('invoices/view'); ?>/" + <?php echo $invoice_id; ?> + "?show_payment=1";
                     } else {
                         $('#fullpage-loader').hide();
                         $('.control-group').removeClass('has-error');
@@ -121,7 +121,13 @@ if ($invoice->invoice_status_id == 1 && ! $invoice->creditinvoice_parent_id) {
         });
 
         $('#btn_generate_pdf').click(function () {
+            $('#btn_save_invoice').click();
             window.open('<?php echo site_url('invoices/generate_pdf/' . $invoice_id); ?>', '_blank');
+        });
+
+        $('#btn_send_email').click(function () {
+            $('#btn_save_invoice').click();
+            window.open('<?php echo site_url('/mailer/invoice/' . $invoice_id); ?>', '_blank');
         });
 
         $('#btn_generate_xml').click(function () {
@@ -234,7 +240,22 @@ if ($invoice->is_read_only != 1) {
         });
 <?php } ?>
 
+    if (window.location.search == "?show_payment=1") {
+        if (<?php echo $invoice->payment_method; ?> == 1 && <?php echo (int) $invoice->invoice_balance; ?>) {
+            setTimeout(function() {
+                $('#modal-placeholder').load("<?php echo site_url('payments/ajax/modal_add_payment'); ?>", {
+                    invoice_id: <?php echo $invoice_id; ?>,
+                    invoice_balance: <?php echo $invoice->invoice_balance; ?>,
+                    invoice_payment_method: <?php echo $invoice->payment_method; ?>,
+                    payment_cf_exist: "<?php echo $payment_cf_exist ?? ''; ?>"
+                });
+            }, 50);
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+    }
+
     });
+
 </script>
 
 <?php
@@ -331,7 +352,8 @@ if ($einvoice->user) {
 }
 ?>
                 <li>
-                    <a href="<?php echo site_url('mailer/invoice/' . $invoice->invoice_id); ?>">
+                    <a href="#" id="btn_send_email"
+                       data-invoice-id="<?php echo $invoice_id; ?>">
                         <i class="fa fa-send fa-margin"></i>
                         <?php _trans('send_email'); ?>
                     </a>
