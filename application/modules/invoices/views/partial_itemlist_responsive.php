@@ -58,9 +58,10 @@ if ($invoice->sumex_id == '') {
                         <div class="col-xs-12 col-lg-6">
                             <div class="input-group">
                                 <label for="item_quantity" class="input-group-addon ig-addon-aligned"><?php _trans('quantity'); ?></label>
-                                <input type="text" name="item_quantity" id="item_quantity" class="form-control" value="">
+                                <input type="text" name="item_quantity" id="item_quantity" class="form-control" value="1">
                             </div>
-                            <div class="input-group">
+
+                            <div class="input-group" style="display: none;">
                                 <label for="item_product_unit_id" class="input-group-addon ig-addon-aligned"><?php _trans('product_unit'); ?></label>
                                 <select name="item_product_unit_id" id="item_product_unit_id" class="form-control">
                                     <option value="0"><?php _trans('none'); ?></option>
@@ -75,6 +76,7 @@ foreach ($units as $unit) {
 ?>
                                 </select>
                             </div>
+
                             <div class="input-group">
                                 <label for="item_price" class="input-group-addon ig-addon-aligned"><?php _trans('price'); ?></label>
                                 <input type="text" name="item_price" id="item_price" class="form-control" value="">
@@ -82,7 +84,7 @@ foreach ($units as $unit) {
                             </div>
 <?php
 if ( ! $legacy_calculation) {
-    $this->layout->load_view('layout/partial/itemlist_responsive_item_discount_input');
+//    $this->layout->load_view('layout/partial/itemlist_responsive_item_discount_input');
 }
 ?>
                             <div class="input-group">
@@ -103,7 +105,7 @@ foreach ($tax_rates as $tax_rate) {
                             </div>
 <?php
 if ($legacy_calculation) {
-    $this->layout->load_view('layout/partial/itemlist_responsive_item_discount_input');
+//    $this->layout->load_view('layout/partial/itemlist_responsive_item_discount_input');
 }
 ?>
                         </div>
@@ -235,7 +237,8 @@ foreach ($items as $item) {
                                 <label for="item_quantity_<?php echo $item->item_id; ?>" class="input-group-addon ig-addon-aligned"><?php _trans('quantity'); ?></label>
                                 <input type="text" name="item_quantity" id="item_quantity_<?php echo $item->item_id; ?>" class="form-control" value="<?php echo format_quantity($item->item_quantity); ?>"<?php echo $invoice_disabled; ?>>
                             </div>
-                            <div class="input-group">
+
+                            <div class="input-group" style="display: none;">
                                 <label for="item_product_unit_id_<?php echo $item->item_id; ?>" class="input-group-addon ig-addon-aligned"><?php _trans('product_unit'); ?></label>
                                 <select name="item_product_unit_id" id="item_product_unit_id_<?php echo $item->item_id; ?>" class="form-control"<?php echo $invoice_disabled; ?>>
                                     <option value="0"><?php _trans('none'); ?></option>
@@ -251,17 +254,20 @@ foreach ($items as $item) {
 ?>
                                 </select>
                             </div>
+
                             <div class="input-group">
                                 <label for="item_price_<?php echo $item->item_id; ?>" class="input-group-addon ig-addon-aligned"><?php _trans('price'); ?></label>
                                 <input type="text" name="item_price" id="item_price_<?php echo $item->item_id; ?>" class="form-control"
                                        value="<?php echo format_amount($item->item_price); ?>"<?php echo $invoice_disabled; ?>>
                                 <div class="input-group-addon"><?php echo get_setting('currency_symbol'); ?></div>
                             </div>
+
 <?php
     if ( ! $legacy_calculation) {
         $this->layout->load_view('layout/partial/itemlist_responsive_item_discount_input', ['item' => $item]);
     }
 ?>
+
                             <div class="input-group">
                                 <label for="item_tax_rate_id_<?php echo $item->item_id; ?>" class="input-group-addon ig-addon-aligned"><?php _trans('tax_rate'); ?></label>
                                 <select name="item_tax_rate_id" id="item_tax_rate_id_<?php echo $item->item_id; ?>" class="form-control"<?php echo $invoice_disabled; ?>>

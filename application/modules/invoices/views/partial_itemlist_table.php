@@ -50,7 +50,7 @@ $invoice_disabled = $invoice->is_read_only != 1 ? '' : ' disabled="disabled"';
             <td class="td-amount td-quantity">
                 <div class="input-group">
                     <span class="input-group-addon"><?php _trans('quantity'); ?></span>
-                    <input type="text" name="item_quantity" class="form-control amount" value="">
+                    <input type="text" name="item_quantity" class="form-control amount" value="1">
                 </div>
             </td>
             <td class="td-amount">
