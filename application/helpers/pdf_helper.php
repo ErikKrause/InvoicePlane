@@ -162,6 +162,8 @@ function generate_invoice_pdf($invoice_id, $stream = true, $invoice_template = n
 
     $html = $CI->load->view('invoice_templates/pdf/' . $invoice_template, $data, true);
 
+//    print_r($html);exit;
+
     // Create PDF with or without an embedded XML
     $CI->load->helper('mpdf');
 
