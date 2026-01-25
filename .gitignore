@@ -21,3 +21,8 @@ adminer.php
 npm-debug.log
 yarn-error.log
 .temp
+/.vscode/
+/application/libraries/XMLtemplates/Facturae/
+/application/libraries/XMLtemplates/fatturapa/
+/sync.ffs_db
+/test.php
